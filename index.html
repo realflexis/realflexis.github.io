@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Texture Pack Maker</title>
+    <link rel="stylesheet" href="style.css" id="theme-link">
+</head>
+<body>
+    <header>
+        <h1>Minecraft Texture Pack Maker</h1>
+        <button id="theme-toggle" class="modern-button">Toggle Light/Dark Mode</button>
+    </header>
+
+    <main>
+        <div class="upload-section">
+            <h2>Blocks</h2>
+            <input type="file" id="blockFileInput" multiple accept="image/png">
+            <div id="blockPreview" class="preview"></div>
+        </div>
+
+        <div class="upload-section">
+            <h2>Items</h2>
+            <input type="file" id="itemFileInput" multiple accept="image/png">
+            <div id="itemPreview" class="preview"></div>
+        </div>
+
+        <div class="upload-section">
+            <h2>Paintings</h2>
+            <input type="file" id="paintingFileInput" multiple accept="image/png">
+            <div id="paintingPreview" class="preview"></div>
+        </div>
+
+        <button id="downloadButton" class="modern-button" disabled>Download Texture Pack</button>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Flexis</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
