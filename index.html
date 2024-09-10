@@ -10,32 +10,57 @@
     <header>
         <h1>Minecraft Texture Pack Maker</h1>
         <button id="theme-toggle" class="modern-button">Toggle Light/Dark Mode</button>
+        <button id="edition-toggle" class="modern-button">Switch to Bedrock Edition</button>
     </header>
 
     <main>
         <div class="upload-section">
             <h2>Blocks</h2>
-            <input type="file" id="blockFileInput" multiple accept="image/png">
+            <label for="blockTypeSelect">Select Block Type:</label>
+            <select id="blockTypeSelect">
+                <option value="grass">Grass</option>
+                <option value="stone">Stone</option>
+                <option value="diamond">Diamond</option>
+                <option value="dirt">Dirt</option>
+                <option value="sand">Sand</option>
+                <option value="wood">Wood</option>
+                <option value="gold">Gold</option>
+                <option value="iron">Iron</option>
+            </select>
+            <input type="file" id="blockFileInput" accept="image/png">
             <div id="blockPreview" class="preview"></div>
         </div>
 
         <div class="upload-section">
             <h2>Items</h2>
-            <input type="file" id="itemFileInput" multiple accept="image/png">
+            <label for="itemTypeSelect">Select Item Type:</label>
+            <select id="itemTypeSelect">
+                <option value="stick">Stick</option>
+                <option value="wooden_sword">Wooden Sword</option>
+                <option value="diamond_sword">Diamond Sword</option>
+                <option value="bow">Bow</option>
+                <option value="arrow">Arrow</option>
+            </select>
+            <input type="file" id="itemFileInput" accept="image/png">
             <div id="itemPreview" class="preview"></div>
         </div>
 
         <div class="upload-section">
             <h2>Paintings</h2>
-            <input type="file" id="paintingFileInput" multiple accept="image/png">
+            <input type="file" id="paintingFileInput" accept="image/png">
             <div id="paintingPreview" class="preview"></div>
+        </div>
+
+        <div class="file-name-section">
+            <h2>Texture Pack Name</h2>
+            <input type="text" id="fileNameInput" placeholder="mypack.mcpack.zip" />
         </div>
 
         <button id="downloadButton" class="modern-button" disabled>Download Texture Pack</button>
     </main>
 
     <footer>
-        <p>&copy; 2024 Flexis</p>
+        <p>&copy; 2024 Flexis Team</p>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
