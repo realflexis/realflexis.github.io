@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexis Integration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1c1c1c;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #f1f1f1;
+            margin: 0;
+            padding-top: 60px; /* Space for fixed navbar */
+        }
+
+        nav {
+            background-color: #252525;
+            color: #f1f1f1;
+            padding: 10px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav img {
+            height: 40px; /* Adjust based on your logo's dimensions */
+        }
+
+        nav .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        nav .nav-links a {
+            color: #f1f1f1;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.3s, border-bottom 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav .nav-links a:hover {
+            color: #0078D7;
+            border-bottom: 2px solid #0078D7;
+        }
+
+        .container {
+            background-color: #252525;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .container h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #f1f1f1;
+        }
+
+        .container label {
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            display: block;
+            color: #c4c4c4;
+        }
+
+        .container input[type="text"],
+        .container select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #3a3a3a;
+            color: #f1f1f1;
+            font-size: 1rem;
+            box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .container input[type="text"]::placeholder {
+            color: #9a9a9a;
+        }
+
+        .container button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            background-color: #0078D7;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .container button:hover {
+            background-color: #005a9e;
+        }
+
+        .settings-section {
+            margin-top: 20px;
+        }
+
+        .settings-section label {
+            display: inline-block;
+            margin-bottom: 5px;
+            color: #c4c4c4;
+        }
+
+        .fast-flags-section {
+            margin-top: 20px;
+        }
+
+        .fast-flag {
+            margin-bottom: 10px;
+        }
+
+        .fast-flag label {
+            color: #c4c4c4;
+        }
+
+        .fast-flag input[type="text"] {
+            width: 40%;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .fast-flag select {
+            width: 20%;
+        }
+
+        @media (max-width: 768px) {
+            nav .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .fast-flag input[type="text"] {
+                width: 60%;
+            }
+
+            .fast-flag select {
+                width: 40%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <img src="logo.png" alt="Logo">
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#fastflags">Fast Flags</a>
+            <a href="#settings">Settings</a>
+        </div>
+    </nav>
+    
+    <div class="container" id="home">
+        <h2>Flexis Integration</h2>
+        <form action="submit" method="post">
+            <label for="api-key">Roblox API Key:</label>
+            <input type="text" id="api-key" name="api-key" placeholder="Enter your Roblox API key" required>
+
+            <div class="settings-section">
+                <h3>FPS Unlocker Settings</h3>
+                <label for="fps">FPS Limit:</label>
+                <input type="text" id="fps" name="fps" placeholder="Enter FPS limit" required>
+            </div>
+
+            <div class="fast-flags-section">
+                <h3>Fast Flags</h3>
+                <div class="fast-flag">
+                    <label for="flag-variable">Variable:</label>
+                    <input type="text" id="flag-variable" name="flag-variable" placeholder="Fast flag variable" required>
+                    <label for="flag-boolean">Boolean/String:</label>
+                    <select id="flag-boolean" name="flag-boolean">
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
