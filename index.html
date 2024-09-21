@@ -1,8 +1,185 @@
 <!DOCTYPE html>
-<html>
-    <title>Moving!</title>
-    <body>
-        <h1>Moving On..</h1>
-        <p>The minecraft making texture pack is currently getting not fixed but we are gonna move it to a page!</p>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexis Exporter</title>
+    <style>
+        /* Modern, responsive, and minimalistic design */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #1E1E1E;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #E0E0E0;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: #303030;
+            color: #ffffff;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            background-color: #424242;
+            outline: none;
+        }
+
+        button {
+            padding: 12px 24px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        canvas {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Create Your Poem or Paragraph</h2>
+
+        <!-- Optional Title -->
+        <input id="titleInput" type="text" placeholder="Title (Optional)">
+        
+        <!-- Textarea for poem/paragraph input -->
+        <textarea id="poemInput" rows="8" placeholder="Write your poem or paragraph here..."></textarea>
+
+        <!-- Text alignment selection -->
+        <select id="alignment">
+            <option value="left">Left Align</option>
+            <option value="center">Center Align</option>
+            <option value="right">Right Align</option>
+        </select>
+
+        <!-- Export button -->
+        <button onclick="exportToImage()">Export as Image</button>
+    </div>
+
+    <!-- Hidden canvas for generating the image -->
+    <canvas id="poemCanvas"></canvas>
+
+    <script>
+        function exportToImage() {
+            const title = document.getElementById('titleInput').value.trim();
+            const text = document.getElementById('poemInput').value.trim();
+            const alignment = document.getElementById('alignment').value;
+            
+            if (text === "") {
+                alert("Please write something before exporting!");
+                return;
+            }
+
+            const canvas = document.getElementById('poemCanvas');
+            const ctx = canvas.getContext('2d');
+            const lineHeight = 30;
+            const padding = 20;
+
+            // Split the text into lines
+            const lines = text.split('\n');
+            const canvasWidth = 600;
+            const canvasHeight = (lines.length + (title ? 1 : 0)) * lineHeight + padding * 2;
+
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
+
+            // Draw background
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+            // Set text style
+            ctx.fillStyle = '#000000';
+            ctx.font = '20px Montserrat';
+            ctx.textBaseline = 'top';
+
+            // Title (optional)
+            if (title) {
+                ctx.font = 'bold 24px Montserrat';
+                drawText(ctx, title, padding, padding, canvasWidth, alignment);
+                ctx.font = '20px Montserrat'; // Reset font for body text
+            }
+
+            // Draw the poem text
+            lines.forEach((line, index) => {
+                drawText(ctx, line, padding, padding + (index + (title ? 1 : 0)) * lineHeight, canvasWidth, alignment);
+            });
+
+            // Download the image
+            const link = document.createElement('a');
+            link.download = 'poem.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        // Helper function to draw text with different alignments
+        function drawText(ctx, text, x, y, maxWidth, alignment) {
+            ctx.textAlign = alignment;
+
+            switch (alignment) {
+                case 'center':
+                    ctx.fillText(text, maxWidth / 2, y);
+                    break;
+                case 'right':
+                    ctx.fillText(text, maxWidth - x, y);
+                    break;
+                default:
+                    ctx.fillText(text, x, y);
+            }
+        }
+    </script>
+</body>
 </html>
