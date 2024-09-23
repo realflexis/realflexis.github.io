@@ -148,9 +148,9 @@
             const lines = text.split('\n');
             const totalHeight = (lines.length + (title ? 1 : 0)) * lineHeight + padding * 2;
 
-            // Adjust height for the border
-            canvas.height = totalHeight + (borderStyle !== 'none' ? 10 : 0);
+            // Set canvas dimensions
             canvas.width = canvasWidth + (borderStyle !== 'none' ? 10 : 0);
+            canvas.height = totalHeight + (borderStyle !== 'none' ? 10 : 0);
 
             // Draw background
             ctx.fillStyle = '#ffffff';
@@ -158,7 +158,7 @@
 
             // Set border style if selected
             if (borderStyle !== 'none') {
-                ctx.strokeStyle = borderStyle === 'solid' ? '#000000' : '#000000';
+                ctx.strokeStyle = '#000000';
                 ctx.lineWidth = 5;
                 ctx.setLineDash(borderStyle === 'dashed' ? [5, 5] : []);
                 ctx.strokeRect(5, 5, canvasWidth, totalHeight);
@@ -184,7 +184,7 @@
             // Download the image
             const link = document.createElement('a');
             link.download = 'poem.png';
-            link.href = canvas.toDataURL();
+            link.href = canvas.toDataURL('image/png');
             link.click();
         }
 
