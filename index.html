@@ -68,10 +68,6 @@
             transform: translateY(-2px);
         }
 
-        select {
-            cursor: pointer;
-        }
-
         canvas {
             display: none;
         }
@@ -106,6 +102,19 @@
             <option value="right">Right Align</option>
         </select>
 
+        <!-- Orientation selection -->
+        <select id="orientation">
+            <option value="portrait">Portrait</option>
+            <option value="landscape">Landscape</option>
+        </select>
+
+        <!-- Border selection -->
+        <select id="border">
+            <option value="none">No Border</option>
+            <option value="solid">Solid Border</option>
+            <option value="dashed">Dashed Border</option>
+        </select>
+
         <!-- Export button -->
         <button onclick="exportToImage()">Export as Image</button>
     </div>
@@ -118,7 +127,9 @@
             const title = document.getElementById('titleInput').value.trim();
             const text = document.getElementById('poemInput').value.trim();
             const alignment = document.getElementById('alignment').value;
-            
+            const orientation = document.getElementById('orientation').value;
+            const borderStyle = document.getElementById('border').value;
+
             if (text === "") {
                 alert("Please write something before exporting!");
                 return;
@@ -129,17 +140,29 @@
             const lineHeight = 30;
             const padding = 20;
 
+            // Determine canvas dimensions based on orientation
+            const canvasWidth = orientation === 'portrait' ? 400 : 600;
+            const canvasHeight = orientation === 'portrait' ? 600 : 400;
+
             // Split the text into lines
             const lines = text.split('\n');
-            const canvasWidth = 600;
-            const canvasHeight = (lines.length + (title ? 1 : 0)) * lineHeight + padding * 2;
+            const totalHeight = (lines.length + (title ? 1 : 0)) * lineHeight + padding * 2;
 
-            canvas.width = canvasWidth;
-            canvas.height = canvasHeight;
+            // Adjust height for the border
+            canvas.height = totalHeight + (borderStyle !== 'none' ? 10 : 0);
+            canvas.width = canvasWidth + (borderStyle !== 'none' ? 10 : 0);
 
             // Draw background
             ctx.fillStyle = '#ffffff';
-            ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Set border style if selected
+            if (borderStyle !== 'none') {
+                ctx.strokeStyle = borderStyle === 'solid' ? '#000000' : '#000000';
+                ctx.lineWidth = 5;
+                ctx.setLineDash(borderStyle === 'dashed' ? [5, 5] : []);
+                ctx.strokeRect(5, 5, canvasWidth, totalHeight);
+            }
 
             // Set text style
             ctx.fillStyle = '#000000';
@@ -149,13 +172,13 @@
             // Title (optional)
             if (title) {
                 ctx.font = 'bold 24px Montserrat';
-                drawText(ctx, title, padding, padding, canvasWidth, alignment);
+                drawText(ctx, title, padding + (borderStyle !== 'none' ? 10 : 0), padding + (borderStyle !== 'none' ? 10 : 0), canvasWidth, alignment);
                 ctx.font = '20px Montserrat'; // Reset font for body text
             }
 
             // Draw the poem text
             lines.forEach((line, index) => {
-                drawText(ctx, line, padding, padding + (index + (title ? 1 : 0)) * lineHeight, canvasWidth, alignment);
+                drawText(ctx, line, padding + (borderStyle !== 'none' ? 10 : 0), padding + (borderStyle !== 'none' ? 10 : 0) + (index + (title ? 1 : 0)) * lineHeight, canvasWidth, alignment);
             });
 
             // Download the image
@@ -171,13 +194,13 @@
 
             switch (alignment) {
                 case 'center':
-                    ctx.fillText(text, maxWidth / 2, y);
+                    ctx.fillText(text, maxWidth / 2 + (borderStyle !== 'none' ? 10 : 0), y);
                     break;
                 case 'right':
-                    ctx.fillText(text, maxWidth - x, y);
+                    ctx.fillText(text, maxWidth - x + (borderStyle !== 'none' ? 10 : 0), y);
                     break;
                 default:
-                    ctx.fillText(text, x, y);
+                    ctx.fillText(text, x + (borderStyle !== 'none' ? 10 : 0), y);
             }
         }
     </script>
