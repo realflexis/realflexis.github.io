@@ -1,1 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bouncing Ball Game</title>
+    <link rel="stylesheet" href="style_2.css">
+</head>
+<body>
 
+    <!-- Cloudflare Turnstile -->
+    <div class="cf-turnstile" data-sitekey="your-site-key-here"></div>
+
+    <div class="container">
+        <canvas id="ballCanvas"></canvas>
+        <div class="controls">
+            <h2>Customize Game</h2>
+
+            <!-- Ball and Circle Color Customization -->
+            <label for="ballColor">Ball Color:</label>
+            <select id="ballColor">
+                <option value="rgb(0,0,255)">Blue</option>
+                <option value="rgb(0,255,0)">Green</option>
+                <option value="rgb(255,0,0)">Red</option>
+                <option value="rgb(255,255,255)">White</option>
+                <option value="rgb(0,0,0)">Black</option>
+            </select>
+
+            <label for="circleColor">Circle Color:</label>
+            <select id="circleColor">
+                <option value="rgb(0,0,255)">Blue</option>
+                <option value="rgb(0,255,0)">Green</option>
+                <option value="rgb(255,0,0)">Red</option>
+                <option value="rgb(255,255,255)">White</option>
+                <option value="rgb(0,0,0)">Black</option>
+            </select>
+
+            <!-- Glow Effect Customization -->
+            <label for="glowEffect">Glow Effect:</label>
+            <select id="glowEffect">
+                <option value="none">No Glow</option>
+                <option value="ballOnly">Ball Glow</option>
+                <option value="circleOnly">Circle Glow</option>
+                <option value="both">Both Glow</option>
+            </select>
+
+            <!-- Bounce Effect Customization -->
+            <label for="bounceEffect">Bounce Effect:</label>
+            <select id="bounceEffect">
+                <option value="growBall">Grow Ball</option>
+                <option value="shrinkCircle">Shrink Circle</option>
+            </select>
+
+            <!-- Music Upload -->
+            <label for="musicUpload">Upload Music (MP3):</label>
+            <input type="file" id="musicUpload" accept="audio/mp3">
+
+            <button id="startGame">Start Game</button>
+        </div>
+    </div>
+
+    <audio id="bounceSound" src=""></audio>
+
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script src="script_2.js"></script>
+</body>
+</html>
