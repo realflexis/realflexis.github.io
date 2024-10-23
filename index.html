@@ -137,7 +137,6 @@
 
             const canvas = document.getElementById('poemCanvas');
             const ctx = canvas.getContext('2d');
-            const lineHeight = 30;
             const padding = 20;
 
             // Determine canvas dimensions based on orientation
@@ -146,9 +145,23 @@
 
             // Split the text into lines
             const lines = text.split('\n');
-            const totalHeight = (lines.length + (title ? 1 : 0)) * lineHeight + padding * 2;
+
+            // Adjust the font size dynamically based on the content length
+            let fontSize = 24;
+            const maxFontSize = 24;
+            const minFontSize = 12;
+
+            ctx.font = `${fontSize}px Montserrat`;
+
+            while (ctx.measureText(text).width > canvasWidth - padding * 2 && fontSize > minFontSize) {
+                fontSize--;
+                ctx.font = `${fontSize}px Montserrat`;
+            }
+
+            const lineHeight = fontSize * 1.5;
 
             // Set canvas dimensions
+            const totalHeight = (lines.length + (title ? 1 : 0)) * lineHeight + padding * 2;
             canvas.width = canvasWidth + (borderStyle !== 'none' ? 10 : 0);
             canvas.height = totalHeight + (borderStyle !== 'none' ? 10 : 0);
 
@@ -166,14 +179,14 @@
 
             // Set text style
             ctx.fillStyle = '#000000';
-            ctx.font = '20px Montserrat';
             ctx.textBaseline = 'top';
+            ctx.font = `${fontSize}px Montserrat`;
 
             // Title (optional)
             if (title) {
-                ctx.font = 'bold 24px Montserrat';
+                ctx.font = `bold ${fontSize + 4}px Montserrat`;
                 drawText(ctx, title, padding + (borderStyle !== 'none' ? 10 : 0), padding + (borderStyle !== 'none' ? 10 : 0), canvasWidth, alignment);
-                ctx.font = '20px Montserrat'; // Reset font for body text
+                ctx.font = `${fontSize}px Montserrat`; // Reset font for body text
             }
 
             // Draw the poem text
